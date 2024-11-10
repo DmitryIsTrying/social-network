@@ -1,0 +1,13 @@
+.item {
+  color: lightcyan;
+}
+
+.item img {
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: left;
+}
+
+.item.active {
+  color: burlywood;
+}
