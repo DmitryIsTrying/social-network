@@ -1,0 +1,12 @@
+.item {
+  color: wheat;
+  text-decoration: none;
+}
+
+.item:active {
+  opacity: 0.7;
+}
+
+.active {
+  color: red;
+}

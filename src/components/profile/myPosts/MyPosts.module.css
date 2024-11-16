@@ -1,3 +1,8 @@
 .posts {
   background-color: #222222;
+  margin-top: 15px;
+}
+
+.postsBlock {
+  padding: 10px;
 }

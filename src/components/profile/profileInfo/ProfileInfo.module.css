@@ -1,0 +1,9 @@
+.headPic {
+  width: 100%;
+  height: 20cqw;
+  object-fit: cover;
+  object-position: top;
+}
+.descriptionBlock {
+  padding: 10px;
+}

@@ -6,8 +6,6 @@ export const Post = (props) => {
     <div className={`${s.item} ${s.active}`}>
       <div>
         <img
-          width={50}
-          height={50}
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLg6JNKL3cZxeOj-F7SW7gLj9x7iPVm4yGTw&s"
           alt="Avatar"
         />

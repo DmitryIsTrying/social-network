@@ -1,12 +1,5 @@
 .nav {
   grid-area: n;
   background-color: #222222;
-}
-
-.item {
-  color: wheat;
-}
-
-.active {
-  color: rgb(253, 198, 95);
+  min-height: 100%;
 }

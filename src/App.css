@@ -8,4 +8,18 @@
   grid-template-rows: 60px 1fr;
   grid-template-columns: 2fr 10fr;
   gap: 10px;
+  min-height: 100dvh;
+}
+
+body {
+  /* background: linear-gradient(to bottom, white 25%, #a8a8a8 45%);
+  background-repeat: no-repeat; */
+  background-color: rgb(180, 180, 180);
+}
+
+.app-wrapper-content {
+  grid-area: c;
+  background-color: #141414;
+  color: white;
+  height: fit-content;
 }
