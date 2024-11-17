@@ -1,13 +1,17 @@
-import React from "react";
-import { Outlet, useMatch, useParams } from "react-router-dom";
+import React, { useRef } from "react";
+import { useParams } from "react-router-dom";
 import { DialogItem } from "./dialogItem/DialogItem";
 import s from "./Dialogs.module.css";
 import { Message } from "./message/Message";
 
 export const Dialogs = (props) => {
   const { id } = useParams();
-
+  const refMessage = useRef(null);
   const messages = props.state.textsMessage.filter((m) => m.sender === id);
+
+  const handleSendMessage = () => {
+    alert(refMessage.current.value);
+  };
 
   return (
     <div className={s.dialogs}>
@@ -24,6 +28,8 @@ export const Dialogs = (props) => {
         ) : (
           <div>Choose chat</div>
         )}
+        <textarea ref={refMessage} />
+        <button onClick={handleSendMessage}>Send message</button>
       </div>
     </div>
   );

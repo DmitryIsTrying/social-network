@@ -7,7 +7,12 @@ export const Profile = (props) => {
   return (
     <div>
       <ProfileInfo />
-      <MyPosts posts={props.state.posts} />
+      <MyPosts
+        addPost={props.addPost}
+        newPostChange={props.state.newPostText}
+        posts={props.state.posts}
+        updateNewPostChange={props.updateNewPostChange}
+      />
     </div>
   );
 };
