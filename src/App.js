@@ -8,6 +8,7 @@ import { Settings } from "./components/settings/Settings";
 import { News } from "./components/news/News";
 import { Music } from "./components/music/Music";
 import { Message } from "./components/dialogs/message/Message";
+import { DialogsContainer } from "./components/dialogs/DialogsContainer";
 
 function App(props) {
   return (
@@ -16,20 +17,8 @@ function App(props) {
       <Navbar />
       <div className="app-wrapper-content">
         <Routes>
-          <Route
-            path="/profile"
-            element={
-              <Profile
-                addPost={props.addPost}
-                state={props.state.profilePage}
-                updateNewPostChange={props.updateNewPostChange}
-              />
-            }
-          />
-          <Route
-            path="/dialogs"
-            element={<Dialogs state={props.state.messagePage} />}
-          >
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/dialogs" element={<DialogsContainer />}>
             <Route path=":id" element={<Message />} />
           </Route>
           <Route path="/settings" element={<Settings />} />

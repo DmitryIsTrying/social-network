@@ -1,17 +1,17 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import s from "./MyPosts.module.css";
 import { Post } from "./post/Post";
+import { addPostAC, updateNewPostTextAC } from "../../../redux/profileReducer";
 
 export const MyPosts = (props) => {
   let newPostElement = useRef(null);
 
-  const handleOnClickBtn = () => {
-    props.addPost(newPostElement.current.value);
-    props.updateNewPostChange("");
+  const handleAddPost = () => {
+    props.addPost();
   };
 
   const onPostChange = () => {
-    props.updateNewPostChange(newPostElement.current.value);
+    props.updateNewPostText(newPostElement.current.value);
   };
 
   return (
@@ -26,7 +26,7 @@ export const MyPosts = (props) => {
           />
         </div>
         <div>
-          <button onClick={handleOnClickBtn}>Add post</button>
+          <button onClick={handleAddPost}>Add post</button>
         </div>
       </div>
       <div className={s.posts}>

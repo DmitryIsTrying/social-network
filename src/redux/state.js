@@ -1,3 +1,6 @@
+import { dialogsReducer } from "./dialogsReducer";
+import { profileReducer } from "./profileReducer";
+
 let store = {
   _state: {
     profilePage: {
@@ -6,7 +9,7 @@ let store = {
         { id: 2, likesCount: 12, text: "Dima is cool!!1!" },
         { id: 3, likesCount: 23, text: "It's my first post" },
       ],
-      newPostText: "it-kamasutra.com",
+      newPostText: "",
     },
     messagePage: {
       contacts: [
@@ -18,40 +21,28 @@ let store = {
         { name: "Elon", id: "755" },
       ],
       textsMessage: [
-        { id: 1, sender: "103215", text: "Hello!", send: true },
-        { id: 2, sender: "103215", text: "Hi!", send: false },
-        { id: 3, sender: "103215", text: "How are u", send: true },
-        { id: 4, sender: "1045", text: "new video!!", send: true },
-        { id: 5, sender: "1045", text: "NICCE", send: false },
+        { id: 1, text: "Hello!" },
+        { id: 2, text: "Hi!" },
+        { id: 3, text: "How are u" },
+        { id: 4, text: "new video!!" },
+        { id: 5, text: "NICCE" },
       ],
+      newMessageBody: "",
     },
   },
+  _callSubscriber() {},
+
   getState() {
     return this._state;
   },
-  _callSubscriber() {},
-  addPost() {
-    let newPost = {
-      id: 5,
-      likesCount: 0,
-      text: this._state.profilePage.newPostText,
-    };
-
-    this._state = {
-      ...this._state,
-      profilePage: {
-        ...this._state.profilePage,
-        posts: [...this._state.profilePage.posts, newPost],
-      },
-    };
-    this._callSubscriber(this._state);
-  },
-  updateNewPostChange(newText) {
-    this._state.profilePage.newPostText = newText;
-    this._callSubscriber(this._state);
-  },
   subscribe(observer) {
     this._callSubscriber = observer;
+  },
+
+  dispatch(action) {
+    profileReducer(this._state.profilePage, action);
+    dialogsReducer(this._state.messagePage, action);
+    this._callSubscriber(this._state);
   },
 };
 
