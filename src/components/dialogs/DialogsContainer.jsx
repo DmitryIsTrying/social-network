@@ -1,11 +1,9 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import { connect } from "react-redux";
 import {
   sendMessageAC,
   updateNewMessageBodyAC,
 } from "../../redux/dialogsReducer";
 import { Dialogs } from "./Dialogs";
-import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
   return {
