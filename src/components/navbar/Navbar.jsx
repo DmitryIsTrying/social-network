@@ -5,6 +5,7 @@ import s from "./Navbar.module.css";
 const navItems = [
   { title: "Profile", path: "/profile" },
   { title: "Message", path: "/dialogs" },
+  { title: "Users", path: "/users" },
   { title: "News", path: "/news" },
   { title: "Music", path: "/music" },
   { title: "Settings", path: "/settings" },

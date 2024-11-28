@@ -1,12 +1,8 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import { DialogItem } from "./dialogItem/DialogItem";
 import s from "./Dialogs.module.css";
 import { Message } from "./message/Message";
-import {
-  sendMessageAC,
-  updateNewMessageBodyAC,
-} from "../../redux/dialogsReducer";
 
 export const Dialogs = (props) => {
   const { id } = useParams();
