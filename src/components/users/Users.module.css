@@ -8,3 +8,27 @@
 .selectedPage {
   font-weight: bold;
 }
+
+.pageLayout {
+  display: flex;
+  gap: 5px;
+}
+
+.page {
+  cursor: pointer;
+  transition: color 0.3s ease-out;
+}
+
+.page:hover {
+  color: bisque;
+}
+
+.spinner {
+  animation: rotate 5s linear infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(-360deg);
+  }
+}

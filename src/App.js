@@ -8,7 +8,7 @@ import { Navbar } from "./components/navbar/Navbar";
 import { News } from "./components/news/News";
 import { Profile } from "./components/profile/Profile";
 import { Settings } from "./components/settings/Settings";
-import { UsersContainer } from "./components/users/UsersContainer";
+import UsersContainer from "./components/users/UsersContainer";
 
 function App(props) {
   return (
