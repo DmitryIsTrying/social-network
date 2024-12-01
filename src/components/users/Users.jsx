@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Users.module.css";
 import userPhoto from "../../assets/images/defaultUser.png";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 export const Users = (props) => {
   const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -54,6 +55,7 @@ export const Users = (props) => {
                   onClick={() => {
                     props.unFollow(user.id);
                   }}
+                  disabled={props.isFetchProgress.some((id) => id === user.id)}
                 >
                   Unfollow
                 </button>
@@ -62,6 +64,7 @@ export const Users = (props) => {
                   onClick={() => {
                     props.follow(user.id);
                   }}
+                  disabled={props.isFetchProgress.some((id) => id === user.id)}
                 >
                   Follow
                 </button>

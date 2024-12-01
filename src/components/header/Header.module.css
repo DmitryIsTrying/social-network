@@ -5,3 +5,11 @@
 .header img {
   border-radius: 50%;
 }
+.loginBlock {
+  float: right;
+  color: whitesmoke;
+}
+.loginBlock > a {
+  color: white;
+  text-decoration: none;
+}

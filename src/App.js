@@ -2,18 +2,18 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import { DialogsContainer } from "./components/dialogs/DialogsContainer";
 import { Message } from "./components/dialogs/message/Message";
-import { Header } from "./components/header/Header";
+import HeaderContainer from "./components/header/HeaderContainer";
 import { Music } from "./components/music/Music";
 import { Navbar } from "./components/navbar/Navbar";
 import { News } from "./components/news/News";
+import ProfileContainer from "./components/profile/ProfileContainer";
 import { Settings } from "./components/settings/Settings";
 import UsersContainer from "./components/users/UsersContainer";
-import ProfileContainer from "./components/profile/ProfileContainer";
 
 function App(props) {
   return (
     <div className="app-wrapper">
-      <Header />
+      <HeaderContainer />
       <Navbar />
       <div className="app-wrapper-content">
         <Routes>
