@@ -1,9 +1,10 @@
 import React from "react";
-import { Profile } from "./Profile";
-import axios from "axios";
 import { connect } from "react-redux";
-import { setUserProfileAC as setUserProfile } from "../../redux/profileReducer";
 import { useParams } from "react-router-dom";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import { getProfileTC } from "../../redux/profileReducer";
+import { Profile } from "./Profile";
+import { compose } from "redux";
 
 const ParamsWrapper = (props) => {
   const params = useParams();
@@ -12,15 +13,7 @@ const ParamsWrapper = (props) => {
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/profile/${
-          this.props.params.id || 2
-        }`
-      )
-      .then(({ data }) => {
-        this.props.setUserProfile(data);
-      });
+    this.props.getProfileTC(this.props.params.id || 2);
   }
   render() {
     return <Profile {...this.props} profile={this.props.profile} />;
@@ -31,4 +24,7 @@ const mapStateToProps = (state) => {
   return { profile: state.profilePage.profile };
 };
 
-export default connect(mapStateToProps, { setUserProfile })(ParamsWrapper);
+export default compose(
+  connect(mapStateToProps, { getProfileTC }),
+  withAuthRedirect
+)(ParamsWrapper);

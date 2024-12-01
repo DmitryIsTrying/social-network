@@ -40,7 +40,7 @@ export const Users = (props) => {
       {props.users.map((user) => (
         <div key={user.id}>
           <span>
-            <div>
+            <div className={styles.userBlock}>
               <NavLink to={"/profile/" + user.id}>
                 <img
                   className={styles.userPhoto}

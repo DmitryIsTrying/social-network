@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { DialogItem } from "./dialogItem/DialogItem";
 import s from "./Dialogs.module.css";
 import { Message } from "./message/Message";
@@ -14,6 +14,7 @@ export const Dialogs = (props) => {
   const handleChangeMessageField = (e) => {
     props.updateNewMessageBody(e.target.value);
   };
+
   return (
     <div className={s.dialogs}>
       <div className={s.dialogsItems}>

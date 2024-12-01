@@ -1,3 +1,5 @@
+import { usersAPI } from "../API/api";
+
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
@@ -87,3 +89,43 @@ export const toggleFollowingProgress = (isFetching, userId) => ({
   isFetching,
   userId,
 });
+
+// thunks
+
+export const getUsersThunkCreator = (payload) => {
+  return (dispatch) => {
+    dispatch(setIsFetchingAC(true));
+    usersAPI
+      .getUsers(payload.currentPage, payload.pageSize)
+      .then(({ items, totalCount }) => {
+        dispatch(setIsFetchingAC(false));
+        dispatch(setUsersAC(items));
+        dispatch(setTotalCountAC(totalCount));
+      });
+  };
+};
+
+export const setFollowOnUserTC = (id) => {
+  return (dispatch) => {
+    dispatch(toggleFollowingProgress(true, id));
+    usersAPI.follow(id).then((res) => {
+      if (res.resultCode === 0) {
+        dispatch(followAC(id));
+      }
+      dispatch(toggleFollowingProgress(false, id));
+    });
+  };
+};
+
+export const setUnFollowOnUserTC = (id) => {
+  return (dispatch) => {
+    dispatch(toggleFollowingProgress(true, id));
+
+    usersAPI.unFollow(id).then((res) => {
+      if (res.resultCode === 0) {
+        dispatch(unFollowAC(id));
+      }
+      dispatch(toggleFollowingProgress(false, id));
+    });
+  };
+};

@@ -3,9 +3,12 @@ import { connect } from "react-redux";
 import { usersAPI } from "../../API/api";
 import {
   followAC as follow,
+  getUsersThunkCreator,
   setCurrentPageAC as setCurrentPage,
+  setFollowOnUserTC,
   setIsFetchingAC as setIsFetching,
   setTotalCountAC as setTotalCount,
+  setUnFollowOnUserTC,
   setUsersAC as setUsers,
   toggleFollowingProgress,
   unFollowAC as unFollow,
@@ -16,64 +19,27 @@ import axios from "axios";
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.setIsFetching(true);
-    usersAPI
-      .getUsers(this.props.currentPage, this.props.pageSize)
-      .then(({ items, totalCount }) => {
-        this.props.setIsFetching(false);
-        this.props.setUsers(items);
-        this.props.setTotalCount(totalCount);
-      });
+    this.props.getUsersThunkCreator({
+      currentPage: this.props.currentPage,
+      pageSize: this.props.pageSize,
+    });
   }
 
   onPageChanged = (page) => {
     if (page === this.props.currentPage) return;
-    this.props.setIsFetching(true);
-    usersAPI.getUsers(page, this.props.pageSize).then(({ items }) => {
-      this.props.setIsFetching(false);
-      this.props.setUsers(items);
+    this.props.getUsersThunkCreator({
+      currentPage: page,
+      pageSize: this.props.pageSize,
     });
     this.props.setCurrentPage(page);
   };
 
   handleFollow = (id) => {
-    this.props.toggleFollowingProgress(true, id);
-
-    axios
-      .post(
-        `https://social-network.samuraijs.com/api/1.0/follow/${id}`,
-        {},
-        {
-          withCredentials: true,
-          headers: {
-            "api-key": "382bfce1-2258-420f-a736-6160001df197",
-          },
-        }
-      )
-      .then((res) => {
-        if (res.data.resultCode === 0) {
-          this.props.follow(id);
-        }
-        this.props.toggleFollowingProgress(false, id);
-      });
+    this.props.setFollowOnUserTC(id);
   };
 
   handleUnFollow = (id) => {
-    this.props.toggleFollowingProgress(true, id);
-
-    axios
-      .delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {
-        withCredentials: true,
-        headers: {
-          "api-key": "382bfce1-2258-420f-a736-6160001df197",
-        },
-      })
-      .then((res) => {
-        if (res.data.resultCode === 0) {
-          this.props.unFollow(id);
-        }
-        this.props.toggleFollowingProgress(false, id);
-      });
+    this.props.setUnFollowOnUserTC(id);
   };
 
   render() {
@@ -114,4 +80,7 @@ export default connect(mapStateToProps, {
   setTotalCount,
   setIsFetching,
   toggleFollowingProgress,
+  getUsersThunkCreator,
+  setFollowOnUserTC,
+  setUnFollowOnUserTC,
 })(UsersContainer);
