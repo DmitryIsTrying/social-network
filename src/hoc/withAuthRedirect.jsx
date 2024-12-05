@@ -8,7 +8,8 @@ const mapStateToPropsForRedirect = (state) => {
 
 export const withAuthRedirect = (Component) => {
   const RedirectComponent = (props) => {
-    if (!props.isAuth) {
+    if (false) {
+      //props.isAuth
       return <Navigate to="/login" replace />;
     }
     return <Component {...props} />;

@@ -1,6 +1,7 @@
 import React from "react";
 import s from "./ProfileInfo.module.css";
 import { Preloader } from "../../common/preloader";
+import { ProfileStatus } from "./profileStatus/ProfileStatus";
 
 export const ProfileInfo = (props) => {
   if (!props.profile) {
@@ -19,7 +20,10 @@ export const ProfileInfo = (props) => {
       <div>{props.profile.fullName}</div>
       <div className={s.descriptionBlock}>
         {props.profile && <img src={props.profile.photos.large} alt="Avatar" />}
-        ava + description
+        <ProfileStatus
+          handleUpdateStatus={props.handleUpdateStatus}
+          status={props.status}
+        />
       </div>
     </>
   );
