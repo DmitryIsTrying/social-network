@@ -14,8 +14,8 @@ export const authReducer = (state = initState, action) => {
     case SET_USER_DATA: {
       return {
         ...state,
-        ...action.data,
-        isAuth: true,
+        ...action.payload,
+        isAuth: action.payload.isAuth,
       };
     }
     default:
@@ -23,8 +23,8 @@ export const authReducer = (state = initState, action) => {
   }
 };
 
-export const setAuthUserData = (id, email, login) => {
-  return { type: SET_USER_DATA, data: { id, email, login } };
+export const setAuthUserData = (id, email, login, isAuth) => {
+  return { type: SET_USER_DATA, payload: { id, email, login, isAuth } };
 };
 
 //thunks
@@ -34,7 +34,37 @@ export const setAuthUserDataTC = () => {
     authAPI.me().then((res) => {
       if (res.resultCode === 0) {
         const { id, login, email } = res.data;
-        dispatch(setAuthUserData(id, email, login));
+        dispatch(setAuthUserData(id, email, login, true));
+      }
+    });
+  };
+};
+
+export const loginUserTC = (formData) => {
+  return (dispatch) => {
+    authAPI
+      .login({
+        email: formData.login,
+        password: formData.password,
+        rememberMe: formData.rememberMe,
+      })
+      .then((data) => {
+        if (data.resultCode === 0) {
+          dispatch(setAuthUserDataTC());
+        } else {
+          alert(data.messages[0]);
+        }
+      });
+  };
+};
+
+export const logoutUserTC = () => {
+  return (dispatch) => {
+    authAPI.logout().then((data) => {
+      if (data.resultCode === 0) {
+        dispatch(setAuthUserData(null, null, null, false));
+      } else {
+        alert(data.messages[0]);
       }
     });
   };

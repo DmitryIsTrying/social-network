@@ -17,24 +17,17 @@ const initState = {
     { id: 4, text: "new video!!" },
     { id: 5, text: "NICCE" },
   ],
-  newMessageBody: "",
 };
 
 export const dialogsReducer = (state = initState, action) => {
   switch (action.type) {
-    case UPDATE_NEW_MESSAGE_BODY: {
-      return { ...state, newMessageBody: action.newBody };
-    }
     case SEND_MESSAGE: {
-      const text = state.newMessageBody;
-
-      state.newMessageBody = "";
       return {
         ...state,
         textsMessage: [
           {
             id: 6,
-            text,
+            text: action.text,
           },
           ...state.textsMessage,
         ],
@@ -45,10 +38,6 @@ export const dialogsReducer = (state = initState, action) => {
     }
   }
 };
-export const sendMessageAC = () => {
-  return { type: SEND_MESSAGE };
-};
-
-export const updateNewMessageBodyAC = (newBody) => {
-  return { type: UPDATE_NEW_MESSAGE_BODY, newBody };
+export const sendMessageAC = (text) => {
+  return { type: SEND_MESSAGE, text };
 };

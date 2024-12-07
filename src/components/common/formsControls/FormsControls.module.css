@@ -1,0 +1,28 @@
+.formControl input,
+.formControl textarea {
+  border: 2px solid rgb(113, 193, 129);
+  padding: 0 10px; /* Добавляем отступы, чтобы создать видимость центрального выравнивания */
+  font-size: 20px; /* Устанавливаем размер шрифта */
+  text-align: left; /* Выравниваем текст по центру по горизонтали */
+  box-sizing: border-box; /* Учитываем padding в общей ширине и высоте элемента */
+  line-height: 1.5;
+}
+
+.formControl.error input,
+.formControl.error textarea {
+  outline: none; /* Убираем стандартную обводку */
+  border: 2px solid salmon; /* Ваша обводка */
+}
+.formControl.error input:focus,
+.formControl.error textarea:focus {
+  border-color: darkorange;
+}
+.formControl.error input::placeholder,
+.formControl.error textarea::placeholder {
+  font-weight: bold; /* Жирный шрифт для плейсхолдера */
+  font-size: 20px; /* Размер шрифта для плейсхолдера */
+}
+
+.formControl div {
+  color: red;
+}

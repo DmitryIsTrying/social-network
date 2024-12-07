@@ -3,18 +3,20 @@ import { Navigate, useParams } from "react-router-dom";
 import { DialogItem } from "./dialogItem/DialogItem";
 import s from "./Dialogs.module.css";
 import { Message } from "./message/Message";
+import { Field, reduxForm } from "redux-form";
+import { useDispatch } from "react-redux";
+import { sendMessageAC } from "../../redux/dialogsReducer";
+import { Textarea } from "../common/formsControls/FormsControls";
+import { maxLength, requiredFields } from "../../utils/validators/validators";
 
+const maxLengthValidate = maxLength(100);
 export const Dialogs = (props) => {
   const { id } = useParams();
+  const disptach = useDispatch();
 
-  const handleSendMessage = () => {
-    props.sendMessage();
+  const sendMessageHandler = (formData) => {
+    disptach(sendMessageAC(formData.message));
   };
-
-  const handleChangeMessageField = (e) => {
-    props.updateNewMessageBody(e.target.value);
-  };
-
   return (
     <div className={s.dialogs}>
       <div className={s.dialogsItems}>
@@ -24,19 +26,28 @@ export const Dialogs = (props) => {
       </div>
       <div className={s.messages}>
         {id ? (
-          props.textsMessage.map((m) => (
-            <Message isSend={true} key={m.id} text={m.text} />
-          ))
+          props.textsMessage.map((m) => <Message isSend={true} key={m.id} text={m.text} />)
         ) : (
           <div>Choose chat</div>
         )}
-        <textarea
-          value={props.newMessageBody}
-          onChange={handleChangeMessageField}
-          placeholder="Enter your message"
-        />
-        <button onClick={handleSendMessage}>Send message</button>
+        <AddMessageReduxForm onSubmit={sendMessageHandler} />
       </div>
     </div>
   );
 };
+
+const AddMessageForm = (props) => {
+  return (
+    <form onSubmit={props.handleSubmit}>
+      <Field
+        placeholder="Enter your message"
+        component={Textarea}
+        validate={[requiredFields, maxLengthValidate]}
+        name="message"
+      />
+      <button>Send message</button>
+    </form>
+  );
+};
+
+const AddMessageReduxForm = reduxForm({ form: "message" })(AddMessageForm);

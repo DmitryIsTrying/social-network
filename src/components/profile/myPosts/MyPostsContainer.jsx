@@ -9,19 +9,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addPost: () => {
-      dispatch(addPostAC());
-      dispatch(updateNewPostTextAC(""));
-    },
-    updateNewPostText: (text) => {
-      dispatch(updateNewPostTextAC(text));
-    },
-  };
-};
-
-export const MyPostsContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MyPosts);
+export const MyPostsContainer = connect(mapStateToProps, {})(MyPosts);

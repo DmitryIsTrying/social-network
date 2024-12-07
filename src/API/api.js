@@ -2,6 +2,7 @@ import axios from "axios";
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
+  withCredentials: true,
   headers: {
     "api-key": process.env.REACT_APP_API_KEY,
     Authorization: `Bearer ${process.env.REACT_APP_AUTH_TOKEN}`,
@@ -11,9 +12,7 @@ const instance = axios.create({
 export const usersAPI = {
   async getUsers(currentPage = 1, pageSize = 10) {
     try {
-      const res = await instance.get(
-        `users?page=${currentPage}&count=${pageSize}`
-      );
+      const res = await instance.get(`users?page=${currentPage}&count=${pageSize}`);
       return res.data;
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -73,6 +72,28 @@ export const authAPI = {
       return res.data;
     } catch (error) {
       console.error("Error fetching authentication:", error);
+    }
+  },
+  async login({ email, password, rememberMe = false }) {
+    try {
+      const res = await instance.post("auth/login", {
+        email,
+        password,
+        rememberMe,
+      });
+      console.log(res);
+
+      return res.data;
+    } catch (err) {
+      console.log("Error with login:", err);
+    }
+  },
+  async logout() {
+    try {
+      const res = await instance.delete("auth/login");
+      return res.data;
+    } catch (err) {
+      console.log("Error with logout:", err);
     }
   },
 };
