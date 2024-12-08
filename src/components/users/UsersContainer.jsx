@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { usersAPI } from "../../API/api";
 import {
   followAC as follow,
   getUsersThunkCreator,
@@ -13,9 +12,17 @@ import {
   toggleFollowingProgress,
   unFollowAC as unFollow,
 } from "../../redux/usersReducer";
+import {
+  selectCurrentPage,
+  selectFetching,
+  selectFetchProgress,
+  selectPageSize,
+  selectTotalUsersCount,
+  selectUsers,
+  selectUsersMemoized,
+} from "../../redux/usersSelectors";
 import { Preloader } from "../common/preloader";
 import { Users } from "./Users";
-import axios from "axios";
 
 class UsersContainer extends React.Component {
   componentDidMount() {
@@ -63,12 +70,12 @@ class UsersContainer extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-    isFetching: state.usersPage.isFetching,
-    isFetchProgress: state.usersPage.followingInProgress,
+    users: selectUsersMemoized(state),
+    pageSize: selectPageSize(state),
+    totalUsersCount: selectTotalUsersCount(state),
+    currentPage: selectCurrentPage(state),
+    isFetching: selectFetching(state),
+    isFetchProgress: selectFetchProgress(state),
   };
 };
 

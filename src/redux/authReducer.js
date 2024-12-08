@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { authAPI } from "../API/api";
 
 const SET_USER_DATA = "SET_USER_DATA";
@@ -30,8 +31,8 @@ export const setAuthUserData = (id, email, login, isAuth) => {
 //thunks
 
 export const setAuthUserDataTC = () => {
-  return (dispatch) => {
-    authAPI.me().then((res) => {
+  return async (dispatch) => {
+    return authAPI.me().then((res) => {
       if (res.resultCode === 0) {
         const { id, login, email } = res.data;
         dispatch(setAuthUserData(id, email, login, true));
@@ -52,7 +53,12 @@ export const loginUserTC = (formData) => {
         if (data.resultCode === 0) {
           dispatch(setAuthUserDataTC());
         } else {
-          alert(data.messages[0]);
+          const message = data.messages.length ? data.messages[0] : "Unexpected error";
+          dispatch(
+            stopSubmit("login", {
+              _error: message,
+            })
+          );
         }
       });
   };
@@ -63,8 +69,6 @@ export const logoutUserTC = () => {
     authAPI.logout().then((data) => {
       if (data.resultCode === 0) {
         dispatch(setAuthUserData(null, null, null, false));
-      } else {
-        alert(data.messages[0]);
       }
     });
   };

@@ -1,10 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
 import { loginUserTC } from "../../redux/authReducer";
-import { Input } from "../common/formsControls/FormsControls";
 import { requiredFields } from "../../utils/validators/validators";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Input } from "../common/formsControls/FormsControls";
+import styles from "../common/formsControls/FormsControls.module.css";
 
 const selector = (state) => state.auth.isAuth;
 
@@ -14,10 +15,9 @@ export const Login = () => {
   const onSubmitHandler = (formData) => {
     disptach(loginUserTC(formData));
   };
-  const navigate = useNavigate();
 
   if (isAuth) {
-    navigate("/profile");
+    return <Navigate replace to={"/profile"} />;
   }
 
   return (
@@ -53,6 +53,7 @@ const LoginForm = (props) => {
       <div>
         <Field type="checkbox" component={Input} name="rememberMe" />
       </div>
+      {props.error && <div className={styles.formSummuryControl}>{props.error}</div>}
       <div>
         <button>Login</button>
       </div>

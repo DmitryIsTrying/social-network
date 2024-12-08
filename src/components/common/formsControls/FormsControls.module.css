@@ -26,3 +26,16 @@
 .formControl div {
   color: red;
 }
+
+.formSummuryControl {
+  padding: 5px;
+  border: 5px solid red;
+  clear: rgb(160, 107, 101);
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  text-align: center;
+}
