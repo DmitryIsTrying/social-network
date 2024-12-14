@@ -1,13 +1,13 @@
 import React from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { Field, reduxForm } from "redux-form";
+import { sendMessageAC } from "../../redux/dialogsReducer";
+import { maxLength, requiredFields } from "../../utils/validators/validators";
+import { Textarea } from "../common/formsControls/FormsControls";
 import { DialogItem } from "./dialogItem/DialogItem";
 import s from "./Dialogs.module.css";
 import { Message } from "./message/Message";
-import { Field, reduxForm } from "redux-form";
-import { useDispatch } from "react-redux";
-import { sendMessageAC } from "../../redux/dialogsReducer";
-import { Textarea } from "../common/formsControls/FormsControls";
-import { maxLength, requiredFields } from "../../utils/validators/validators";
 
 const maxLengthValidate = maxLength(100);
 export const Dialogs = (props) => {
@@ -17,6 +17,7 @@ export const Dialogs = (props) => {
   const sendMessageHandler = (formData) => {
     disptach(sendMessageAC(formData.message));
   };
+
   return (
     <div className={s.dialogs}>
       <div className={s.dialogsItems}>
