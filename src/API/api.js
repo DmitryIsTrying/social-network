@@ -74,14 +74,14 @@ export const authAPI = {
       console.error("Error fetching authentication:", error);
     }
   },
-  async login({ email, password, rememberMe = false }) {
+  async login({ email, password, rememberMe = false, captcha = null }) {
     try {
       const res = await instance.post("auth/login", {
         email,
         password,
         rememberMe,
+        captcha,
       });
-      console.log(res);
 
       return res.data;
     } catch (err) {
@@ -94,6 +94,14 @@ export const authAPI = {
       return res.data;
     } catch (err) {
       console.log("Error with logout:", err);
+    }
+  },
+  async getCaptcha() {
+    try {
+      const res = await instance.get("security/get-captcha-url");
+      return res.data;
+    } catch (err) {
+      console.log("Error with captcha:", err);
     }
   },
 };

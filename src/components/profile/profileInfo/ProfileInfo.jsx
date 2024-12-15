@@ -20,10 +20,7 @@ export const ProfileInfo = (props) => {
       <div>{props.profile.fullName}</div>
       <div className={s.descriptionBlock}>
         {props.profile && <img src={props.profile.photos.large} alt="Avatar" />}
-        <ProfileStatus
-          handleUpdateStatus={props.handleUpdateStatus}
-          status={props.status}
-        />
+        <ProfileStatus handleUpdateStatus={props.handleUpdateStatus} status={props.status} />
       </div>
     </>
   );

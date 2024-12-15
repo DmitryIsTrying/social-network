@@ -7,11 +7,13 @@ import { requiredFields } from "../../utils/validators/validators";
 import { Input } from "../common/formsControls/FormsControls";
 import styles from "../common/formsControls/FormsControls.module.css";
 
-const selector = (state) => state.auth.isAuth;
+const selectAuth = (state) => state.auth.isAuth;
+const selectCaptcha = (state) => state.auth.captchaUrl;
 
 export const Login = () => {
   const disptach = useDispatch();
-  const isAuth = useSelector(selector);
+  const isAuth = useSelector(selectAuth);
+  const captchaUrl = useSelector(selectCaptcha);
   const onSubmitHandler = (formData) => {
     disptach(loginUserTC(formData));
   };
@@ -23,12 +25,12 @@ export const Login = () => {
   return (
     <div>
       <h1>Login</h1>
-      <LoginReduxForm onSubmit={onSubmitHandler} />
+      <LoginReduxForm captchaUrl={captchaUrl} onSubmit={onSubmitHandler} />
     </div>
   );
 };
 
-const LoginForm = (props) => {
+const LoginForm = ({ captchaUrl, ...props }) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
@@ -54,6 +56,20 @@ const LoginForm = (props) => {
         <Field type="checkbox" component={Input} name="rememberMe" />
       </div>
       {props.error && <div className={styles.formSummuryControl}>{props.error}</div>}
+      {captchaUrl && (
+        <>
+          <img src={captchaUrl} alt="captcha image" />{" "}
+          <div>
+            <Field
+              type="text"
+              validate={[requiredFields]}
+              component={Input}
+              placeholder="Captcha"
+              name="captcha"
+            />
+          </div>
+        </>
+      )}
       <div>
         <button>Login</button>
       </div>
