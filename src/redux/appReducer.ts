@@ -1,14 +1,14 @@
+//@ts-ignore
 import { setAuthUserDataTC } from "./authReducer";
-
-const SUCCESS_INITIALIZED = "SUCCESS_INITIALIZED";
+import { Dispatch } from "redux";
 
 const initState = {
   initialized: false,
 };
 
-export const appReducer = (state = initState, action) => {
+export const appReducer = (state = initState, action: AppActions) => {
   switch (action.type) {
-    case SUCCESS_INITIALIZED: {
+    case "SUCCESS_INITIALIZED": {
       return {
         ...state,
         initialized: true,
@@ -19,15 +19,19 @@ export const appReducer = (state = initState, action) => {
   }
 };
 
-export const setInitializedSuccess = () => ({ type: SUCCESS_INITIALIZED });
+export const setInitializedSuccess = () => ({ type: "SUCCESS_INITIALIZED" } as const);
 
 //thunks
 
 export const initializeApp = () => {
-  return (dispatch) => {
+  return (dispatch: Dispatch) => {
     const dispatchResult = dispatch(setAuthUserDataTC());
     dispatchResult.then(() => {
       dispatch(setInitializedSuccess());
     });
   };
 };
+
+//types
+type SetInitSuccess = ReturnType<typeof setInitializedSuccess>;
+export type AppActions = SetInitSuccess;
